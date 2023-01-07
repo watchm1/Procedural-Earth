@@ -9,6 +9,8 @@ namespace Global.EarthBase
     {
         [SerializeField] public bool autoUpdate = true;
         [SerializeField] public int faceAmount;
+        [HideInInspector] public enum FaceRenderMask{All, Top, Bottom, Left, Right, Front, Back};
+        [SerializeField] public FaceRenderMask faceRenderMask;
         [SerializeField][Range(2,256)] public int resolution = 10;
         [SerializeField, HideInInspector]private MeshFilter[] meshFilters;
         [SerializeField] public ShapeSettings shapeSettings;
@@ -16,11 +18,13 @@ namespace Global.EarthBase
         [SerializeField] public bool ShowEditorColorSettings;
         [SerializeField] public bool ShowEditorShapeSettings;
         private TerrainFace[] terrainFaces;
-        private ShapeGenerator shapeGenerator;
+        private ShapeGenerator shapeGenerator = new ShapeGenerator();
+        private ColorGenerator colorGenerator = new ColorGenerator();
 
         private  void Initialize() {
 
-            shapeGenerator = new ShapeGenerator(shapeSettings);
+            shapeGenerator.UpdateSettings(shapeSettings);
+            colorGenerator.UpdateSettings(colorSettings);
             if(meshFilters == null ||meshFilters.Length == 0)
             {
                 meshFilters = new MeshFilter[faceAmount];
@@ -35,11 +39,14 @@ namespace Global.EarthBase
                     GameObject obj = new GameObject("mesh");
                     obj.transform.parent = transform;
 
-                    obj.AddComponent<MeshRenderer>().sharedMaterial = new Material(Shader.Find("Universal Render Pipeline/Lit"));
+                    obj.AddComponent<MeshRenderer>();
                     meshFilters[i] = obj.AddComponent<MeshFilter>();
                     meshFilters[i].sharedMesh = new Mesh();
                 }
+                meshFilters[i].GetComponent<MeshRenderer>().material = colorSettings.planetMaterial;
                 terrainFaces[i] = new TerrainFace(shapeGenerator, meshFilters[i].sharedMesh, resolution, directions[i]);
+                bool renderFace = faceRenderMask == FaceRenderMask.All || (int) faceRenderMask -1 == i;
+                meshFilters[i].gameObject.SetActive(renderFace);
             }
 
             
@@ -69,17 +76,18 @@ namespace Global.EarthBase
         }
         private void GenerateMesh()
         {
-            foreach(var item in terrainFaces)
+            for(int i = 0; i < faceAmount; i++)
             {
-                item.ConstructMesh();
+                if(meshFilters[i].gameObject.activeSelf)
+                {
+                   terrainFaces[i].ConstructMesh(); 
+                }
             }
+            colorGenerator.UpdateElevation(shapeGenerator.elevationMinMax);
         }
         void GenerateColors()
         {
-            foreach(var item in meshFilters)
-            {
-                item.GetComponent<MeshRenderer>().sharedMaterial.color = colorSettings.planetColor;
-            }
+            colorGenerator.UpdateColors();
         }
     }
 }
