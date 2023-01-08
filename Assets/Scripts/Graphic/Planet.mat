@@ -1,5 +1,18 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-2714773621716213066
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5
 --- !u!21 &2100000
 Material:
   serializedVersion: 8
@@ -8,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Planet
-  m_Shader: {fileID: -6465566751694194690, guid: 034ab4748d6ad9d48a1bb8a3e2594b9e,
+  m_Shader: {fileID: -6465566751694194690, guid: e7885d0f9410ce1429cf434edc725507,
     type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -39,23 +52,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _BUILTIN_QueueControl: -1
-    - _BUILTIN_QueueOffset: 0
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _Smoothness: 0
     m_Colors:
-    - _elevationMinMax: {r: -3.4028235e+38, g: 3.4028235e+38, b: 0, a: 0}
+    - _elevationMinMax: {r: -0.14694877, g: 0.140723, b: 0, a: 0}
   m_BuildTextureStacks: []
---- !u!114 &4178430235653020050
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 5

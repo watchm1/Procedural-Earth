@@ -10,8 +10,8 @@ namespace Global.EarthBase
         public float Max { get; set; }
         public MinMax()
         {
-            this.Min = float.MinValue;
-            this.Max = float.MaxValue;
+            this.Min = float.MaxValue;
+            this.Max = float.MinValue;
         }
         public void AddValue(float v)
         {

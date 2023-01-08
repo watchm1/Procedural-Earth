@@ -21,6 +21,10 @@ namespace Global.EarthBase
         private ShapeGenerator shapeGenerator = new ShapeGenerator();
         private ColorGenerator colorGenerator = new ColorGenerator();
 
+        void Awake()
+        {
+            GeneratePlanet();
+        }
         private  void Initialize() {
 
             shapeGenerator.UpdateSettings(shapeSettings);
@@ -88,6 +92,11 @@ namespace Global.EarthBase
         void GenerateColors()
         {
             colorGenerator.UpdateColors();
+            for(int i = 0; i < faceAmount; i++)
+            {
+                terrainFaces[i].UpdateUVs(colorGenerator);
+            }
+            
         }
     }
 }

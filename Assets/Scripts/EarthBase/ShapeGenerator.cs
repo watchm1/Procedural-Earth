@@ -21,7 +21,7 @@ namespace Global.EarthBase
             }
             elevationMinMax = new MinMax();
         }
-        public Vector3 CalculatePointOnPlanet(Vector3 pointOnUnitySphere)
+        public float CalculateUnscaledElevation(Vector3 pointOnUnitySphere)
         {
             float firstLayer = 0;
             float elevation = 0;
@@ -41,9 +41,15 @@ namespace Global.EarthBase
                     elevation += noiseFilters[i].Evaluate(pointOnUnitySphere) * mask;
                 }
             }
-            elevation =  settings.planetRadius * (1 + elevation);
             elevationMinMax.AddValue(elevation);
-            return pointOnUnitySphere * elevation;
+            return elevation;
+        }
+
+        public float GetScaledElevation(float unscaledElevation)
+        {
+            float elevation = Mathf.Max(0, unscaledElevation);
+            elevation = settings.planetRadius * (1+ elevation);
+            return elevation;
         }
     }
 
